@@ -1,3 +1,5 @@
+import "./user.css"
+
 
 export function UserTable({users}){
    {console.log(users)}

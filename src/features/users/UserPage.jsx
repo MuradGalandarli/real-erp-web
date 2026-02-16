@@ -1,21 +1,51 @@
 import { useState,useEffect } from "react";
-import { getAllProduct } from "./userService"
+import { getAllUser,addUser } from "./userService"
 import { UserTable } from "./UserTable"
+import { UserModal } from "./UserModal";
+import "./user.css"
 
 export function UserPage(){
    const [users, setUsers] = useState([])
    const [page, setPage] = useState(1)
    const [size, setSize] = useState(10)
+   const [showModal,setShowModal] = useState(false)
 
-useEffect(()=>{
-     const fetchUsers = async()=>{ setUsers((await getAllProduct(page,size)).data)
-    }
-fetchUsers()},[]
-)
+const fetchUsers = async () => {
+  try {
+    const response = await getAllUser(page, size);
+    setUsers(response.data);
+  } catch (error) {
+    console.error("Users fetch error:", error);
+  }
+};
+
+useEffect(() => {
+  fetchUsers();
+}, [page, size]);
+
+
+const handleSaveUser = async (formData)=>{
+    debugger;
+await addUser(formData);
+await fetchUsers();
+}
 
     return (
   <div>
+<div className="addBtn">
+<button onClick={() => setShowModal(true)}>Add User</button>
+</div>
+
       <UserTable users={users} />
+
+      {showModal && (
+        <UserModal 
+        onClose={()=>setShowModal(false)}
+        onSave={handleSaveUser}
+        />
+       
+      )}
+
     </div>
     );
 }
