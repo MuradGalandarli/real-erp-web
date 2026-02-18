@@ -1,5 +1,5 @@
 import { useState,useEffect } from "react";
-import { getAllUser,addUser } from "./userService"
+import { getAllUser,addUser,getByIdUserAsync } from "./userService"
 import { UserTable } from "./UserTable"
 import { UserModal } from "./UserModal";
 import "./user.css"
@@ -9,6 +9,8 @@ export function UserPage(){
    const [page, setPage] = useState(1)
    const [size, setSize] = useState(10)
    const [showModal,setShowModal] = useState(false)
+   const [selectedUser, setSelectedUser] = useState(null)
+
 
 const fetchUsers = async () => {
   try {
@@ -23,9 +25,13 @@ useEffect(() => {
   fetchUsers();
 }, [page, size]);
 
+const handleUpdateClick = async (user) => {
+  const result = await getByIdUserAsync(user)
+  setSelectedUser(result.data)
+  setShowModal(true)
+}
 
 const handleSaveUser = async (formData)=>{
-    debugger;
 await addUser(formData);
 await fetchUsers();
 }
@@ -36,12 +42,13 @@ await fetchUsers();
 <button onClick={() => setShowModal(true)}>Add User</button>
 </div>
 
-      <UserTable users={users} />
-
+      <UserTable users={users} onUpdate={handleUpdateClick} />
+      
       {showModal && (
         <UserModal 
         onClose={()=>setShowModal(false)}
         onSave={handleSaveUser}
+        user={selectedUser}
         />
        
       )}

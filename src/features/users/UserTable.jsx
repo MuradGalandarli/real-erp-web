@@ -1,8 +1,8 @@
 import "./user.css"
 
 
-export function UserTable({users}){
-   {console.log(users)}
+export function UserTable({users,onUpdate}){
+   
     return(
        <table>
         
@@ -13,18 +13,21 @@ export function UserTable({users}){
         <th>SurName</th>
         <th>Email</th>
         <th>Company</th>
+        <th>Update</th>
+        <th>Delete</th>
     </tr>
 </thead>
 <tbody>
    
    { users.map((user,index)=>(
-<tr key={user.id}>
-    
+<tr  key={user.email}>
     <td>{++index}</td>
     <td>{user.name}</td>
     <td>{user.surname}</td>
     <td>{user.email}</td>
     <td>{user.companyId}</td>
+    <td><button onClick={()=>onUpdate(user.email)}>Update</button></td>
+    <td></td>
 </tr>
     ))}
 </tbody>
