@@ -2,18 +2,19 @@ import { useState,useEffect } from "react";
 import "./user.css"
 
 
-export function UserModal({onClose,onSave,user}){
-    const[formData,setFormData] = useState([{
-        "name" : "",
-        "surname": "",
-        "email": "",
-        "companyId": "",
-        "password": ""
-    }])
+export function UserModal({onClose,onSave,user,onUpdate}){
+  const [formData, setFormData] = useState({
+  name: "",
+  surname: "",
+  email: "",
+  companyId: "",
+  password: ""
+});
 
 useEffect(()=>{
      if(user)
         setFormData({
+         "id":user.userId,
          "name" : user.name,
         "surname": user.surname,
         "email": user.email,
@@ -21,10 +22,7 @@ useEffect(()=>{
         "password": ""
         })
 },[user]
-   
-
 )
-
 
 const handleChange = (e)=>{
     setFormData({...formData,
@@ -34,6 +32,10 @@ const handleChange = (e)=>{
 
 const handleSubmit = ()=>{
 onSave(formData)
+}
+const handleUpdate = ()=>{
+    
+    onUpdate(formData)
 }
 
 return (
@@ -54,13 +56,6 @@ value={formData.surname}
 />
 
 <input
-name = "email"
-placeholder="email"
-onChange={handleChange}
-value={formData.email}
-/>
-
-<input
 name = "companyId"
 placeholder="company"
 onChange={handleChange}
@@ -72,11 +67,18 @@ value={formData.companyId}
 name = "password"
 placeholder="password"
 onChange={handleChange}
-/>)}
+/>
+,<input
+name = "email"
+placeholder="email"
+onChange={handleChange}
+value={formData.email}
+/>
+)}
 
 <div className="modal-buttons">
 
-<button onClick={handleSubmit}>Save</button>
+<button onClick={user ? handleUpdate : handleSubmit}>Save</button>
 <button onClick={onClose}>Cancel</button>
 
 </div>

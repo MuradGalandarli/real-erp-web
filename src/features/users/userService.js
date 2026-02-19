@@ -10,6 +10,9 @@ export const addUser = async (user) => {
 export const getByIdUserAsync = async (email) => {
   return await apiClient.get(`/api/User/get-by-email-user?email=${email}`);
 }
+export const updateUserAsync = async (user)=>{
+  return await apiClient.put(`/api/User/update-user`,user)
+}
 
 
 

@@ -1,5 +1,5 @@
 import { useState,useEffect } from "react";
-import { getAllUser,addUser,getByIdUserAsync } from "./userService"
+import { getAllUser,addUser,getByIdUserAsync,updateUserAsync } from "./userService"
 import { UserTable } from "./UserTable"
 import { UserModal } from "./UserModal";
 import "./user.css"
@@ -10,7 +10,6 @@ export function UserPage(){
    const [size, setSize] = useState(10)
    const [showModal,setShowModal] = useState(false)
    const [selectedUser, setSelectedUser] = useState(null)
-
 
 const fetchUsers = async () => {
   try {
@@ -35,6 +34,12 @@ const handleSaveUser = async (formData)=>{
 await addUser(formData);
 await fetchUsers();
 }
+const handleUpdateUser = async(user)=>{
+ await updateUserAsync(user);
+  setShowModal(false);  
+  setSelectedUser(null);
+ await fetchUsers();
+}
 
     return (
   <div>
@@ -49,6 +54,7 @@ await fetchUsers();
         onClose={()=>setShowModal(false)}
         onSave={handleSaveUser}
         user={selectedUser}
+        onUpdate={handleUpdateUser}
         />
        
       )}
