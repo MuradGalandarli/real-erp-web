@@ -1,7 +1,7 @@
 import "./user.css"
 
 
-export function UserTable({users,onUpdate}){
+export function UserTable({users,onUpdate,onDelete}){
    
     return(
        <table>
@@ -27,7 +27,7 @@ export function UserTable({users,onUpdate}){
     <td>{user.email}</td>
     <td>{user.companyId}</td>
     <td><button onClick={()=>onUpdate(user.email)}>Update</button></td>
-    <td></td>
+    <td><button onClick={()=>onDelete(user.email)}>Delete</button></td>
 </tr>
     ))}
 </tbody>

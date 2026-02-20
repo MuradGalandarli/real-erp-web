@@ -1,5 +1,5 @@
 import { useState,useEffect } from "react";
-import { getAllUser,addUser,getByIdUserAsync,updateUserAsync } from "./userService"
+import { getAllUser,addUser,getByIdUserAsync,updateUserAsync,deleteUserAsync } from "./userService"
 import { UserTable } from "./UserTable"
 import { UserModal } from "./UserModal";
 import "./user.css"
@@ -40,6 +40,10 @@ const handleUpdateUser = async(user)=>{
   setSelectedUser(null);
  await fetchUsers();
 }
+const hendleUserDelete = async(email)=>{
+ await deleteUserAsync(email);
+ setUsers(prev=> prev.filter(u=>u.email !== email))
+}
 
     return (
   <div>
@@ -47,7 +51,9 @@ const handleUpdateUser = async(user)=>{
 <button onClick={() => setShowModal(true)}>Add User</button>
 </div>
 
-      <UserTable users={users} onUpdate={handleUpdateClick} />
+      <UserTable users={users} onUpdate={handleUpdateClick}
+      onDelete={hendleUserDelete}
+      />
       
       {showModal && (
         <UserModal 
