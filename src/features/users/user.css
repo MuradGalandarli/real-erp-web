@@ -8,6 +8,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  
 }
 
 .modal {
@@ -50,13 +51,11 @@ body {
 
 .addBtn {
   position: relative;
-  top: -320px;
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: -320px;
 }
 
 th, td {
