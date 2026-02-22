@@ -12,7 +12,7 @@ export default function Sidebar() {
 
       <ul style={{ listStyle: "none", padding: 0 }}>
         <li><Link to="/" style={linkStyle}>Dashboard</Link></li>
-        <li><Link to="/products" style={linkStyle}>Products</Link></li>
+        <li><Link to="/category" style={linkStyle}>Category</Link></li>
         <li><Link to="/users" style={linkStyle}>Users</Link></li>
         <li><Link to="/warehouse" style={linkStyle}>Warehouse</Link></li>
       </ul>

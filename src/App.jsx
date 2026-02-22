@@ -5,6 +5,7 @@ import './App.css'
 import {UserPage} from "./features/users/UserPage"
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./layout/Layout";
+import {CategoryPage} from "./features/category/CategoryPage"
 
 function App() {
   
@@ -12,9 +13,8 @@ return(
    <BrowserRouter>
       <Routes>
   <Route path='/' element={<Layout />}>
-  {/* <Route path='/' element={<Layout/>}>
-  </Route> */}
     <Route path="/users" element={<UserPage />} />
+<Route path="/category" element={<CategoryPage />}/>
   </Route>
 </Routes>
     </BrowserRouter>
