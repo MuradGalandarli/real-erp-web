@@ -1,5 +1,5 @@
 
-export function CategoryTable({categories}){
+export function CategoryTable({categories, onDelete}){
 
 return (
     
@@ -10,6 +10,7 @@ return (
                 <th>Name</th>
                 <th>Description</th>
                 <th>Company</th>
+                <th>Delete</th>
             </tr>
         </thead>
         <tbody>
@@ -19,6 +20,7 @@ return (
                 <td>{category.name}</td>
                 <td>{category.description}</td>
                 <td>{category.companyId}</td>
+                <td> <button onClick={()=>onDelete(category.id)}>Delete</button></td>
             </tr>
             ))}
             

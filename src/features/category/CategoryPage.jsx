@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { getAllCategoryAsync } from "./categoryService.js"
+import { getAllCategoryAsync, deleteCategoryAsync} from "./categoryService.js"
 import { CategoryTable } from "./CategoryTable.jsx";
 
 export function CategoryPage(){
@@ -15,9 +15,14 @@ const categoryFetch = async()=>{
     categoryFetch();
     },[page,size])
 
+    const deleteCategory = async (id)=>{
+ await deleteCategoryAsync(id);
+ setCategories( categories.filter(c=>c.id !== id))
+    }
+
 return (
     <div>
-        <CategoryTable categories={categories}/>
+        <CategoryTable categories={categories} onDelete={deleteCategory}/>
     </div>
 )
 }
