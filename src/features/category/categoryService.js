@@ -8,3 +8,6 @@ return await apiClient.get(`/api/Category/get-all-category?page=${page}&size=${s
 export const deleteCategoryAsync = async(id)=>{
     return await apiClient.delete(`/api/Category/delete-category?id=${id}`)
 }
+export const updateCategoryAsync = async(category)=>{
+    return await apiClient.put(`/api/Category/update-category`,category)
+}

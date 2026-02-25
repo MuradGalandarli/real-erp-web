@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { getAllCategoryAsync, deleteCategoryAsync} from "./categoryService.js"
+import { getAllCategoryAsync, deleteCategoryAsync,updateCategoryAsync} from "./categoryService.js"
 import { CategoryTable } from "./CategoryTable.jsx";
 import { CategoryModal } from "./CategoryModal.jsx"
 
@@ -30,12 +30,23 @@ const category = categories.find(c => c.id === id);
 setSelectedCategory(category);
 setShowModal(true);
     }
+    const handleCategoryUpdate = async (data)=>{
+
+const status =  await updateCategoryAsync(data);
+
+if(status){ 
+    setShowModal(false);
+setCategories(prev =>
+  prev.map(c => c.id === data.id ? data : c)
+);
+}
+    }
 
 return (
     <div>
         <CategoryTable categories={categories} onDelete={deleteCategory} onUpdate={getByIdCategory}/>
        {showModal &&
-        <CategoryModal onClose={()=>(setShowModal(false))} category={selectedCategory} />
+        <CategoryModal onClose={()=>(setShowModal(false))} category={selectedCategory} onUpdate={handleCategoryUpdate} />
        }
     </div>
 )

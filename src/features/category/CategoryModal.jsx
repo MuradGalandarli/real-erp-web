@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react" 
 
 
-export function CategoryModal({onClose, category}){
+export function CategoryModal({onClose, category,onUpdate}){
 
     const [data, setData] = useState({
         id :"id",
         name : "",
         description : "",
-        company : ""
+        companyId : ""
     })
 
 
@@ -19,22 +19,26 @@ export function CategoryModal({onClose, category}){
                     "id" : category.id,
                     "name" : category.name,
                     "description" : category.description,
-                    "company" : category.companyId
+                    "companyId" : category.companyId
                 })
                 console.log(data)
 
     },[category]
     )
 
+    const handleSubmit = ()=>{
+onUpdate(data);
+    }
+
   return(  <div className="modal-overlay">
         <div className="modal">
             <h2>Update</h2>
-            <input name="name" placeholder="name" value={data.name}/>
-            <input name="description" placeholder="description" value={data.description}/>
-            <input name="company" placeholder="company" value={data.company}/>
+            <input name="name" placeholder="name" value={data.name} onChange={(e)=>{setData({...data, name: e.target.value})}}/>
+            <input name="description" placeholder="description" value={data.description} onChange={(e)=>{setData({...data, description : e.target.value})}}/>
+            <input name="companyId" placeholder="company" value={data.companyId} onChange={(e)=>{setData({...data,companyId: e.target.value})}}/>
 <div className="modal-buttons">
 
-<button>Save</button>
+<button onClick={handleSubmit}>Save</button>
 <button onClick={onClose}>Cancel</button>
 
 </div>
