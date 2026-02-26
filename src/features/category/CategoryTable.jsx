@@ -1,8 +1,8 @@
 
-export function CategoryTable({categories, onDelete,onUpdate}){
-
+export function CategoryTable({categories, onDelete,onUpdate,onAdd}){
 return (
-    
+    <div>
+    <button type="button" onClick={onAdd}>Add</button>
     <table>
         <thead>
             <tr>
@@ -29,6 +29,7 @@ return (
             
         </tbody>
     </table>
+    </div>
 )
 
 }

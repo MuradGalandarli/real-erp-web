@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { getAllCategoryAsync, deleteCategoryAsync,updateCategoryAsync} from "./categoryService.js"
+import { getAllCategoryAsync, deleteCategoryAsync,updateCategoryAsync,addCategoryAsync} from "./categoryService.js"
 import { CategoryTable } from "./CategoryTable.jsx";
 import { CategoryModal } from "./CategoryModal.jsx"
 
@@ -21,18 +21,20 @@ const categoryFetch = async()=>{
 
     const deleteCategory = async (id)=>{
  await deleteCategoryAsync(id);
-
  setCategories( categories.filter(c=>c.id !== id))
     }
 
     const getByIdCategory = (id)=>{  
+        debugger;
 const category = categories.find(c => c.id === id);
 setSelectedCategory(category);
 setShowModal(true);
+setSelectedCategory(null)
     }
     const handleCategoryUpdate = async (data)=>{
 
 const status =  await updateCategoryAsync(data);
+
 
 if(status){ 
     setShowModal(false);
@@ -42,11 +44,21 @@ setCategories(prev =>
 }
     }
 
+    const addCategory = async (category)=>{
+        
+       const status = await addCategoryAsync(category);
+      debugger;
+if(status.data){ 
+    setShowModal(false);
+    setCategories(prev=> [...prev, category])
+}
+    }
+
 return (
     <div>
-        <CategoryTable categories={categories} onDelete={deleteCategory} onUpdate={getByIdCategory}/>
+        <CategoryTable categories={categories} onDelete={deleteCategory} onUpdate={getByIdCategory} onAdd={() => setShowModal(true)}/>
        {showModal &&
-        <CategoryModal onClose={()=>(setShowModal(false))} category={selectedCategory} onUpdate={handleCategoryUpdate} />
+        <CategoryModal onClose={()=>(setShowModal(false))} category={selectedCategory} onUpdate={handleCategoryUpdate} onAdd={addCategory} />
        }
     </div>
 )

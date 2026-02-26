@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react" 
 
 
-export function CategoryModal({onClose, category,onUpdate}){
+export function CategoryModal({onClose, category, onUpdate, onAdd}){
 
     const [data, setData] = useState({
         id :"id",
@@ -28,17 +28,21 @@ export function CategoryModal({onClose, category,onUpdate}){
 
     const handleSubmit = ()=>{
 onUpdate(data);
+}
+
+const handleAdd = ()=>{
+    onAdd(data)
     }
 
   return(  <div className="modal-overlay">
         <div className="modal">
-            <h2>Update</h2>
+            <h2>{category ? "Update" : "Add"} </h2>
             <input name="name" placeholder="name" value={data.name} onChange={(e)=>{setData({...data, name: e.target.value})}}/>
             <input name="description" placeholder="description" value={data.description} onChange={(e)=>{setData({...data, description : e.target.value})}}/>
             <input name="companyId" placeholder="company" value={data.companyId} onChange={(e)=>{setData({...data,companyId: e.target.value})}}/>
 <div className="modal-buttons">
 
-<button onClick={handleSubmit}>Save</button>
+<button onClick={category ? handleSubmit : handleAdd}>Save</button>
 <button onClick={onClose}>Cancel</button>
 
 </div>

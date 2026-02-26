@@ -11,3 +11,6 @@ export const deleteCategoryAsync = async(id)=>{
 export const updateCategoryAsync = async(category)=>{
     return await apiClient.put(`/api/Category/update-category`,category)
 }
+export const addCategoryAsync = async (category) =>{
+    return await apiClient.post(`/api/Category/add-category`,category)
+}
