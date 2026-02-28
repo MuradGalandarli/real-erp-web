@@ -1,8 +1,12 @@
 
-export function WarehouseTable({ data }) {
+export function WarehouseTable({ data,onAddModal }) {
 
     return(
+        <div>
+            <button onClick={onAddModal}>Add</button>
+        
     <table>
+        
         <tr>
             <th>Id</th>
             <th>Name</th>
@@ -22,5 +26,6 @@ export function WarehouseTable({ data }) {
         ))}
 
     </table>
+    </div>
     )
 }

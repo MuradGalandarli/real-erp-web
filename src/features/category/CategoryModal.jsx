@@ -4,7 +4,7 @@ import { useEffect, useState } from "react"
 export function CategoryModal({onClose, category, onUpdate, onAdd}){
 
     const [data, setData] = useState({
-        id :"id",
+        id :"",
         name : "",
         description : "",
         companyId : ""
