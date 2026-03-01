@@ -25,7 +25,6 @@ const categoryFetch = async()=>{
     }
 
     const getByIdCategory = (id)=>{  
-        debugger;
 const category = categories.find(c => c.id === id);
 setSelectedCategory(category);
 setShowModal(true);
@@ -34,7 +33,6 @@ setSelectedCategory(null)
     const handleCategoryUpdate = async (data)=>{
 
 const status =  await updateCategoryAsync(data);
-
 
 if(status){ 
     setShowModal(false);
@@ -47,7 +45,6 @@ setCategories(prev =>
     const addCategory = async (category)=>{
         
        const status = await addCategoryAsync(category);
-      debugger;
 if(status.data){ 
     setShowModal(false);
     setCategories(prev=> [...prev, category])

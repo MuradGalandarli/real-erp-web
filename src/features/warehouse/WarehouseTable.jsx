@@ -1,31 +1,34 @@
 
-export function WarehouseTable({ data,onAddModal }) {
+export function WarehouseTable({ data, onAddModal, onUpdateModal }) {
 
-    return(
+    return (
         <div>
             <button onClick={onAddModal}>Add</button>
-        
-    <table>
-        
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Location</th>
-            <th>Company</th>
-        </tr>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Location</th>
+                        <th>Company</th>
+                        <th>Update</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {data.map((warehouse, index) => (
+                        <tr key={index}>
+                            <td>{++index}</td>
+                            <td>{warehouse.name}</td>
+                            <td>{warehouse.description}</td>
+                            <td>{warehouse.location}</td>
+                            <td>{warehouse.companyId}</td>
+                            <td><button onClick={() => { onUpdateModal(warehouse.id) }}>Update</button></td>
+                        </tr>
 
-        { data.map((warehouse, index) => (
-            <tr key={index}>
-                <td>{++index}</td>
-                <td>{warehouse.name}</td>
-                <td>{warehouse.description}</td>
-                <td>{warehouse.location}</td>
-                <td>{warehouse.companyId}</td>
-            </tr>
-        ))}
-
-    </table>
-    </div>
+                    ))}
+                </tbody>
+            </table>
+        </div>
     )
 }
