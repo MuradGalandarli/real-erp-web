@@ -13,6 +13,7 @@ export function WarehouseTable({ data, onAddModal, onUpdateModal }) {
                         <th>Location</th>
                         <th>Company</th>
                         <th>Update</th>
+                        <th>Delete</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -24,6 +25,7 @@ export function WarehouseTable({ data, onAddModal, onUpdateModal }) {
                             <td>{warehouse.location}</td>
                             <td>{warehouse.companyId}</td>
                             <td><button onClick={() => { onUpdateModal(warehouse.id) }}>Update</button></td>
+                           
                         </tr>
 
                     ))}

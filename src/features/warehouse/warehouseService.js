@@ -7,3 +7,6 @@ return await apiClient.get(`/api/Warehouse/get-all-warehouse?page=${page}&size=$
 export const addWarehouseAsync = async (warehouse)=>{
     return await apiClient.post(`/api/Warehouse/add-warehouse`, warehouse)
 }
+export const updateWarehouseAsync = async(warehouse)=>{
+    return await apiClient.put(`/api/Warehouse/update-warehouse`,warehouse)
+}

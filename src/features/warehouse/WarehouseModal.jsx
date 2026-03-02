@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 
 
-export function WarehouseModal({ onClose, onAdd, data }) {
+export function WarehouseModal({ onClose, onAdd, data, onUpdate }) {
 
     const [formData, setFormData] = useState({
         "name": "",
@@ -26,14 +26,14 @@ export function WarehouseModal({ onClose, onAdd, data }) {
         <div className="modal-overlay">
 
             <div className="modal">
-                <h2>Add</h2>
+                <h2>{data ? "Update" : "Add"}</h2>
                 <input value={formData.name} placeholder="name" onChange={(e) => { setFormData({ ...formData, name: e.target.value }) }} />
                 <input value={formData.description} placeholder="description" onChange={(e) => { setFormData({ ...formData, description: e.target.value }) }} />
                 <input value={formData.location} placeholder="location" onChange={(e) => { setFormData({ ...formData, location: e.target.value }) }} />
                 <input value={formData.companyId} placeholder="company" onChange={(e) => { setFormData({ ...formData, companyId: e.target.value }) }} />
 
                 <div>
-                    <button onClick={() => { onAdd(formData) }}>Save</button>
+                    <button onClick={() => { data ? onUpdate(formData) :  onAdd(formData) }}>Save</button>
                     <button onClick={onClose}>Close</button>
                 </div>
             </div>

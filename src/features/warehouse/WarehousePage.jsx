@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { getAllWarehouseAsync, addWarehouseAsync } from "./warehouseService"
+import { getAllWarehouseAsync, addWarehouseAsync, updateWarehouseAsync } from "./warehouseService"
 import { WarehouseTable } from "./WarehouseTable"
 import { WarehouseModal } from "./WarehouseModal"
 import { data } from "react-router-dom";
@@ -21,32 +21,43 @@ export function WarehousePage() {
         handleGetAllWarehouse();
     }, [page, size])
 
-   
+
     const handleWarehouseAdd = async (data) => {
-     await addWarehouseAsync(data);
-   
+        await addWarehouseAsync(data);
+
         setWarehouse(prev => [...prev, data]);
         setShowModal(false);
-}
+    }
 
-const handleWarehouseUpdate = async(id)=>{
-setShowModal(true);
-setSelecetWarehouse(warehouses.find(w=>w.id === id));
-}
+    const handleUpdateWarehouse = async (data) => {
+        updateWarehouseAsync(data)
+        setWarehouse(prew => prew.map(w => w.id === data.id ? data : w))
+        setShowModal(false);
+    }
+
+    const handleWarehouseUpdate = async (id) => {
+        setShowModal(true);
+        setSelecetWarehouse(warehouses.find(w => w.id === id));
+    }
+
+
 
     return (
         <div>
             <WarehouseTable
-             data={warehouses} 
-             onAddModal={()=>{{setShowModal(true)}} }
-             onUpdateModal={handleWarehouseUpdate}
-             />
+                data={warehouses}
+                onAddModal={() => { { setShowModal(true) } }}
+                onUpdateModal={handleWarehouseUpdate}
+                
+            />
 
             {showModal &&
                 <WarehouseModal
-                 onAdd={handleWarehouseAdd } onClose={() => { setShowModal(false) }}
-                 data={selectWarehouse}
-                 />
+                    onAdd={handleWarehouseAdd} onClose={() => { setShowModal(false), setSelecetWarehouse(null) }}
+                    data={selectWarehouse}
+                    onUpdate={handleUpdateWarehouse}
+
+                />
             }
         </div>
     )
