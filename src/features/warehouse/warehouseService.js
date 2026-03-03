@@ -10,3 +10,6 @@ export const addWarehouseAsync = async (warehouse)=>{
 export const updateWarehouseAsync = async(warehouse)=>{
     return await apiClient.put(`/api/Warehouse/update-warehouse`,warehouse)
 }
+export const deleteWarehouseAsync = async(id)=>{
+    return await apiClient.delete(`/api/Warehouse/delete-warehouse?id=${id}`)
+}

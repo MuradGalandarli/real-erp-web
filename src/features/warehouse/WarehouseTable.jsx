@@ -1,5 +1,5 @@
 
-export function WarehouseTable({ data, onAddModal, onUpdateModal }) {
+export function WarehouseTable({ data, onAddModal, onUpdateModal,onDelete }) {
 
     return (
         <div>
@@ -25,7 +25,7 @@ export function WarehouseTable({ data, onAddModal, onUpdateModal }) {
                             <td>{warehouse.location}</td>
                             <td>{warehouse.companyId}</td>
                             <td><button onClick={() => { onUpdateModal(warehouse.id) }}>Update</button></td>
-                           
+                            <td><button onClick={()=>{onDelete(warehouse.id)}}>Delete</button></td>
                         </tr>
 
                     ))}

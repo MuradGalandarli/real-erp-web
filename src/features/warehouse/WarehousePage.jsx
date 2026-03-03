@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { getAllWarehouseAsync, addWarehouseAsync, updateWarehouseAsync } from "./warehouseService"
+import { getAllWarehouseAsync, addWarehouseAsync, updateWarehouseAsync, deleteWarehouseAsync } from "./warehouseService"
 import { WarehouseTable } from "./WarehouseTable"
 import { WarehouseModal } from "./WarehouseModal"
 import { data } from "react-router-dom";
@@ -40,7 +40,10 @@ export function WarehousePage() {
         setSelecetWarehouse(warehouses.find(w => w.id === id));
     }
 
-
+    const handleDeleteWarehouse = async(id)=>{
+        await deleteWarehouseAsync(id);
+        setWarehouse(warehouses.filter(w=>w.id !== id))
+    }
 
     return (
         <div>
@@ -48,7 +51,7 @@ export function WarehousePage() {
                 data={warehouses}
                 onAddModal={() => { { setShowModal(true) } }}
                 onUpdateModal={handleWarehouseUpdate}
-                
+                onDelete={handleDeleteWarehouse}
             />
 
             {showModal &&
