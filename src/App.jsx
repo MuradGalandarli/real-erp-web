@@ -7,6 +7,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./layout/Layout";
 import {CategoryPage} from "./features/category/CategoryPage"
 import {WarehousePage} from "./features/warehouse/WarehousePage"
+import { DepartmentPage } from './features/department/DepartmentPage'
+
 
 function App() {
   
@@ -17,6 +19,7 @@ return(
     <Route path="/users" element={<UserPage />} />
 <Route path="/category" element={<CategoryPage />}/>
 <Route path="/warehouse" element={<WarehousePage/>}/>
+<Route path='/department'element={<DepartmentPage/>}/>
   </Route>
 </Routes>
     </BrowserRouter>
