@@ -1,6 +1,7 @@
-export function DepartmentTable({ departments }) {
+export function DepartmentTable({ departments,getModal }) {
   return (
     <div>
+      <button onClick={getModal}>Add</button>
       <table border="1">
         <thead>
           <tr>

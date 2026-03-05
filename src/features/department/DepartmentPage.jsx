@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react"
-import { getAllDepartmentAsync } from "./departmentService"
+import { getAllDepartmentAsync, getAddDepartmentAsync } from "./departmentService"
 import {DepartmentTable} from "./DepartmentTable"
+import { DepartmentModal } from "./departmentModal";
 
 export function DepartmentPage(){
 const [departments,setDepartments] = useState([]);
 const [page,setPage] = useState(1)
 const [size, setSize] = useState(10)
+const [showModal, setShowModal ] = useState(false)
 
 
 const handleDepartmentGetAll = async()=>{
@@ -16,9 +18,22 @@ useEffect(()=>{
 handleDepartmentGetAll();
 },[page,size])
 
-    return (
-<DepartmentTable departments={departments}/>
 
+const handleAddAsync = async (data)=>{
+    debugger
+await getAddDepartmentAsync(data);
+setShowModal(false)
+setDepartments([...departments, data])
+}
+
+    return (
+        <div>
+<DepartmentTable departments={departments} getModal={()=>{{console.log(showModal)}setShowModal(true)}}/>
+
+{showModal  &&
+<DepartmentModal onClose={()=>{setShowModal(false)}} onAdd={handleAddAsync}/>
+}
+</div>
     )
 }
 
