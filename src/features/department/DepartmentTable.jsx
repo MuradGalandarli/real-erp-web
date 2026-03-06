@@ -1,4 +1,4 @@
-export function DepartmentTable({ departments,getModal }) {
+export function DepartmentTable({ departments,getModal,onUpdate }) {
   return (
     <div>
       <button onClick={getModal}>Add</button>
@@ -8,6 +8,7 @@ export function DepartmentTable({ departments,getModal }) {
             <th>Id</th>
             <th>Name</th>
             <th>Company</th>
+            <th>Update</th>
           </tr>
         </thead>
         <tbody>
@@ -16,6 +17,7 @@ export function DepartmentTable({ departments,getModal }) {
               <td>{++index}</td>
               <td>{department.name}</td>
               <td>{department.companyId}</td>
+              <td>{<button onClick={()=>{onUpdate(department.id)}}>Update</button>}</td>
             </tr>
           ))}
         </tbody>

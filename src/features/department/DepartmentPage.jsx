@@ -8,7 +8,7 @@ const [departments,setDepartments] = useState([]);
 const [page,setPage] = useState(1)
 const [size, setSize] = useState(10)
 const [showModal, setShowModal ] = useState(false)
-
+const [selectDepartment,setSelectDepartment] = useState(null)
 
 const handleDepartmentGetAll = async()=>{
    const datas = await getAllDepartmentAsync(page,size);
@@ -26,12 +26,19 @@ setShowModal(false)
 setDepartments([...departments, data])
 }
 
+const handleGetByIdDepartment = (id)=>{
+    debugger;
+setSelectDepartment( departments.find(x=>x.id === id))
+
+setShowModal(true);
+}
+
     return (
         <div>
-<DepartmentTable departments={departments} getModal={()=>{{console.log(showModal)}setShowModal(true)}}/>
+<DepartmentTable departments={departments} getModal={()=>{setShowModal(true)}}   onUpdate={handleGetByIdDepartment}/>
 
 {showModal  &&
-<DepartmentModal onClose={()=>{setShowModal(false)}} onAdd={handleAddAsync}/>
+<DepartmentModal onClose={()=>{setShowModal(false)}} onAdd={handleAddAsync} onData={selectDepartment}/>
 }
 </div>
     )
