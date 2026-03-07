@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { getAllDepartmentAsync, getAddDepartmentAsync } from "./departmentService"
+import { getAllDepartmentAsync, getAddDepartmentAsync,updateDepartmentAsync } from "./departmentService"
 import {DepartmentTable} from "./DepartmentTable"
 import { DepartmentModal } from "./departmentModal";
 
@@ -20,17 +20,23 @@ handleDepartmentGetAll();
 
 
 const handleAddAsync = async (data)=>{
-    debugger
 await getAddDepartmentAsync(data);
 setShowModal(false)
-setDepartments([...departments, data])
+setDepartments(prev=>[...prev, data])
 }
 
 const handleGetByIdDepartment = (id)=>{
-    debugger;
+  
 setSelectDepartment( departments.find(x=>x.id === id))
-
 setShowModal(true);
+}
+
+const handleUpdateDepartment = async (department)=>{
+    await updateDepartmentAsync(department)
+    setShowModal(false);
+    setSelectDepartment(null)
+    setDepartments(prev =>
+  prev.map(d => d.id === department.id ? department : d));
 }
 
     return (
@@ -38,7 +44,7 @@ setShowModal(true);
 <DepartmentTable departments={departments} getModal={()=>{setShowModal(true)}}   onUpdate={handleGetByIdDepartment}/>
 
 {showModal  &&
-<DepartmentModal onClose={()=>{setShowModal(false)}} onAdd={handleAddAsync} onData={selectDepartment}/>
+<DepartmentModal onClose={()=>{setShowModal(false)}} onAdd={handleAddAsync} onData={selectDepartment} onUpdate={handleUpdateDepartment}/>
 }
 </div>
     )

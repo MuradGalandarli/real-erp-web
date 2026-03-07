@@ -7,3 +7,6 @@ export const getAllDepartmentAsync = async (page,size)=>{
 export const getAddDepartmentAsync = async(data)=>{
 return await apiClient.post(`api/Department/add-department`,data)
 }
+export const updateDepartmentAsync = async(department)=>{
+    return await apiClient.put(`/api/Department/update-department`,department)
+}
