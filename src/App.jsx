@@ -8,6 +8,7 @@ import Layout from "./layout/Layout";
 import {CategoryPage} from "./features/category/CategoryPage"
 import {WarehousePage} from "./features/warehouse/WarehousePage"
 import { DepartmentPage } from './features/department/DepartmentPage'
+import { CompanyPage } from './features/company/CompanyPage'
 
 
 function App() {
@@ -20,6 +21,7 @@ return(
 <Route path="/category" element={<CategoryPage />}/>
 <Route path="/warehouse" element={<WarehousePage/>}/>
 <Route path='/department'element={<DepartmentPage/>}/>
+<Route path="/company" element={<CompanyPage/>}/>
   </Route>
 </Routes>
     </BrowserRouter>
