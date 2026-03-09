@@ -1,15 +1,16 @@
-export function CompanyTable({ onCompany = [] }) {
+export function CompanyTable({ onCompany = [], getShowModal}) {
     return (
         <table>
             <thead>
                 <tr>
-                    <th>#</th>
+                    <th>Id</th>
                     <th>Name</th>
                     <th>Email</th>
                     <th>Phone</th>
                     <th>Address</th>
                     <th>Country</th>
                     <th>City</th>
+                    <th>Update</th>
                 </tr>
             </thead>
             <tbody>
@@ -22,6 +23,7 @@ export function CompanyTable({ onCompany = [] }) {
                         <td>{company.address}</td>
                         <td>{company.country}</td>
                         <td>{company.city}</td>
+                        <td><button onClick={()=>{getShowModal(company.id)}}>Update</button></td>
                     </tr>
                 ))}
             </tbody>
