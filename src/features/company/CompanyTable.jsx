@@ -1,5 +1,7 @@
-export function CompanyTable({ onCompany = [], getShowModal}) {
+export function CompanyTable({ onCompany = [], getShowModal, getModal}) {
     return (
+        <div>
+         <button onClick={getModal}>Add</button>
         <table>
             <thead>
                 <tr>
@@ -15,7 +17,7 @@ export function CompanyTable({ onCompany = [], getShowModal}) {
             </thead>
             <tbody>
                 {onCompany.map((company, index) => (
-                    <tr key={company.id}>
+                    <tr key={index}>
                         <td>{index + 1}</td>
                         <td>{company.name}</td>
                         <td>{company.email}</td>
@@ -28,5 +30,6 @@ export function CompanyTable({ onCompany = [], getShowModal}) {
                 ))}
             </tbody>
         </table>
+        </div>
     );
 }

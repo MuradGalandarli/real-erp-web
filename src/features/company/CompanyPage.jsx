@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { getAllCompanyAsync, updateCompanyAsync } from "./companyService"
+import { getAllCompanyAsync, updateCompanyAsync, addCompanyAsync } from "./companyService"
 import { CompanyTable } from "./CompanyTable"
 import { CompanyModal } from "./CompanyModal"
 
@@ -49,16 +49,36 @@ export function CompanyPage() {
         setSelectCompany(null);
     }
 
+    const addCompay = async(data)=>{
+  const company ={ "companyDto": {
+   
+    "name": data.name,
+    "email": data.email,
+    "phone": data.phone,
+    "address": data.address,
+    "country": data.country,
+    "city": data.city
+  }
+    }
+            await addCompanyAsync(company);
+            setShowModal(false);
+             setCompanies(prev=>[...prev,data]);
+
+}
+
 
 return (
     <div>
-        <CompanyTable onCompany={companies} getShowModal={handleGetByIdCompany} />
+        <CompanyTable onCompany={companies} getShowModal={handleGetByIdCompany} 
+         getModal={()=>{setShowModal(true)}}
+        />
 
         {showModal && (
             <CompanyModal
                 onClose={() => setShowModal(false)}
                 company={selectCompany}
                 onUpdate={handleUpdateCompany}
+                onAdd={addCompay}
             />
         )}
 

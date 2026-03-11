@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 
-export function CompanyModal({company, onClose, onUpdate}) {
+export function CompanyModal({company, onClose, onUpdate,onAdd}) {
     const [data, setData] = useState({
         name: "",
         email: "",
@@ -38,7 +38,7 @@ export function CompanyModal({company, onClose, onUpdate}) {
                 <input value={data.city} placeholder="city" onChange={(e) => { setData({...data, city: e.target.value }) }} type="text" />
 
 <div className="modal-buttons">
-    <button onClick={()=>{onUpdate(data)}}>Save</button>
+    <button onClick={()=>{{company ? onUpdate(data): onAdd(data)}}}>Save</button>
     <button onClick={onClose}>Close</button>
 </div>
 
