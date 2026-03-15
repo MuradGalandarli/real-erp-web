@@ -11,3 +11,7 @@ export const updateCompanyAsync = async(company)=>{
 export const addCompanyAsync = async(company)=>{
 return await apiClient.post(`/api/Company/add-company`, company)
 }
+
+export const deleteCompanyAsync = async(id)=>{
+    return await apiClient.delete(`/api/Company/delete-company?id=${id}`)
+}

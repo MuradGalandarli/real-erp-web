@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react"
 import { getAllDepartmentAsync, getAddDepartmentAsync,updateDepartmentAsync } from "./departmentService"
 import {DepartmentTable} from "./DepartmentTable"

@@ -1,4 +1,4 @@
-export function CompanyTable({ onCompany = [], getShowModal, getModal}) {
+export function CompanyTable({ onCompany = [], getShowModal, getModal,onDelete}) {
     return (
         <div>
          <button onClick={getModal}>Add</button>
@@ -13,6 +13,7 @@ export function CompanyTable({ onCompany = [], getShowModal, getModal}) {
                     <th>Country</th>
                     <th>City</th>
                     <th>Update</th>
+                    <th>Delete</th>
                 </tr>
             </thead>
             <tbody>
@@ -26,6 +27,7 @@ export function CompanyTable({ onCompany = [], getShowModal, getModal}) {
                         <td>{company.country}</td>
                         <td>{company.city}</td>
                         <td><button onClick={()=>{getShowModal(company.id)}}>Update</button></td>
+                        <td><button onClick={()=>(onDelete(company.id))}>Delete</button></td>
                     </tr>
                 ))}
             </tbody>

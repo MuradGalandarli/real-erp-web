@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { getAllCompanyAsync, updateCompanyAsync, addCompanyAsync } from "./companyService"
+import { getAllCompanyAsync, updateCompanyAsync, addCompanyAsync,deleteCompanyAsync } from "./companyService"
 import { CompanyTable } from "./CompanyTable"
 import { CompanyModal } from "./CompanyModal"
 
@@ -63,7 +63,11 @@ export function CompanyPage() {
             await addCompanyAsync(company);
             setShowModal(false);
              setCompanies(prev=>[...prev,data]);
+}
 
+const deleteCompany = async (id)=>{
+    await deleteCompanyAsync(id);
+    setCompanies(prev=> prev.filter(c=>c.id !== id));
 }
 
 
@@ -71,6 +75,7 @@ return (
     <div>
         <CompanyTable onCompany={companies} getShowModal={handleGetByIdCompany} 
          getModal={()=>{setShowModal(true)}}
+          onDelete={deleteCompany}
         />
 
         {showModal && (
@@ -79,6 +84,7 @@ return (
                 company={selectCompany}
                 onUpdate={handleUpdateCompany}
                 onAdd={addCompay}
+               
             />
         )}
 
