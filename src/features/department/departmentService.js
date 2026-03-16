@@ -10,3 +10,6 @@ return await apiClient.post(`api/Department/add-department`,data)
 export const updateDepartmentAsync = async(department)=>{
     return await apiClient.put(`/api/Department/update-department`,department)
 }
+export const deleteDepartmentAsync = async (id)=>{
+return await apiClient.delete(`/api/Department/delete-department?id=${id}`);
+}
