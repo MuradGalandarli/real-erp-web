@@ -9,7 +9,7 @@ import {CategoryPage} from "./features/category/CategoryPage"
 import {WarehousePage} from "./features/warehouse/WarehousePage"
 import { DepartmentPage } from './features/department/DepartmentPage'
 import { CompanyPage } from './features/company/CompanyPage'
-
+import { ProductPage } from './features/product/ProductPage' 
 
 function App() {
   
@@ -22,6 +22,7 @@ return(
 <Route path="/warehouse" element={<WarehousePage/>}/>
 <Route path='/department'element={<DepartmentPage/>}/>
 <Route path="/company" element={<CompanyPage/>}/>
+<Route path="/product" element={<ProductPage/>}/>
   </Route>
 </Routes>
     </BrowserRouter>

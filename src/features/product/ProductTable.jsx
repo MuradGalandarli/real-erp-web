@@ -1,0 +1,51 @@
+
+export function ProductTable({ onProducts }) {
+
+    return (
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>BrandId</th>
+                        <th>CategoryId</th>
+                        <th>CompanyId</th>
+                        <th>Image</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {/* {console.log(onProducts)} */}
+                    {onProducts.map((product, index) => (
+
+                        <tr key={index++}>
+                            <td>{++index}</td>
+                            <td>{product.name}</td>
+                            <td>{product.description}</td>
+                            <td>{product.brandId}</td>
+                            <td>{product.categoryId}</td>
+                            <td>{product.categoryId}</td>
+                            <td>
+                                {product.productImages?.map((i, index) =>
+                                
+                                    i.isMain && !i.isDeleted ? (
+                                        <img
+                                            key={index}
+                                            src={i.imageUrl}
+                                            alt="images"
+                                            width="50"
+                                        />
+                                       
+                                    ) : null
+                                )}
+                            </td>
+
+                        </tr>
+                    ))}
+
+                </tbody>
+            </table>
+        </div>
+    )
+}
