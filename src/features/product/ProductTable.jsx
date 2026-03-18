@@ -1,8 +1,9 @@
 
-export function ProductTable({ onProducts }) {
+export function ProductTable({ onProducts,getModal }) {
 
     return (
         <div>
+            <button onClick={getModal}>Add</button>
             <table>
                 <thead>
                     <tr>
