@@ -1,5 +1,5 @@
 
-export function ProductTable({ onProducts,getModal }) {
+export function ProductTable({ onProducts,getModal,onDelete}) {
 
     return (
         <div>
@@ -14,6 +14,7 @@ export function ProductTable({ onProducts,getModal }) {
                         <th>CategoryId</th>
                         <th>CompanyId</th>
                         <th>Image</th>
+                        <th>Delete</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -26,7 +27,8 @@ export function ProductTable({ onProducts,getModal }) {
                             <td>{product.description}</td>
                             <td>{product.brandId}</td>
                             <td>{product.categoryId}</td>
-                            <td>{product.categoryId}</td>
+                            <td>{product.companyId}</td>
+                          
                             <td>
                                 {product.productImages?.map((i, index) =>
                                 
@@ -35,12 +37,14 @@ export function ProductTable({ onProducts,getModal }) {
                                             key={index}
                                             src={i.imageUrl}
                                             alt="images"
-                                            width="50"
+                                            width="40"
+                                           
                                         />
                                        
                                     ) : null
                                 )}
                             </td>
+                              <td><button onClick={()=>{onDelete(product.id)}}>Delete</button></td>
 
                         </tr>
                     ))}

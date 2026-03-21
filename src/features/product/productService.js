@@ -9,3 +9,6 @@ export const addProductAsync = async(product)=>{
     return await apiClient.post(`/api/Product/add-product`,product, {
     headers: { "Content-Type": "multipart/form-data" }})
 }
+export const deleteProductAsync = async(id)=>{
+    return await apiClient.delete(`/api/Product/delete-product?id=${id}`)
+}

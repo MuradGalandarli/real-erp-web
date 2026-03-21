@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { getAllProductAsync, addProductAsync } from "./productService"
+import { getAllProductAsync, addProductAsync, deleteProductAsync } from "./productService"
 import { ProductTable } from "./ProductTable"
 import { ProductModal } from "./PrductModal";
 
@@ -23,19 +23,25 @@ export function ProductPage() {
     )
 
     useEffect(() => {
-        console.log(products);
-    }, [products]);
+    }, [page, size,products]);
 
     const addProduct = async (product) => {
-        
-        debugger;
         await addProductAsync(product);
-        // setShow(false);
+        setShow(false);
+       await getAllProduct()
+    }
+
+    const deleteProduct = async(id)=>{
+        await deleteProductAsync(id);
+        setProducts(prev=>prev.filter(p=>p.id !== id))
     }
 
     return (
         <div>
-            <ProductTable onProducts={products} getModal={()=>{setShow(true)}} />
+            <ProductTable 
+            onProducts={products} getModal={() => { setShow(true) }}
+            onDelete={deleteProduct}
+            />
             {show &&
                 <ProductModal onNewProduct={addProduct} />
             }
