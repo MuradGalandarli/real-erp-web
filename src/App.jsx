@@ -10,6 +10,7 @@ import {WarehousePage} from "./features/warehouse/WarehousePage"
 import { DepartmentPage } from './features/department/DepartmentPage'
 import { CompanyPage } from './features/company/CompanyPage'
 import { ProductPage } from './features/product/ProductPage' 
+import { BrandPage } from "./features/brand/BrandPage"
 
 function App() {
   
@@ -23,6 +24,8 @@ return(
 <Route path='/department'element={<DepartmentPage/>}/>
 <Route path="/company" element={<CompanyPage/>}/>
 <Route path="/product" element={<ProductPage/>}/>
+<Route path='/brand' element={<BrandPage/>}></Route>
+
   </Route>
 </Routes>
     </BrowserRouter>

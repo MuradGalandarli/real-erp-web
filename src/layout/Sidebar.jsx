@@ -18,6 +18,7 @@ export default function Sidebar() {
         <li><Link to="/department" style={linkStyle}>Department</Link></li>
         <li><Link to="/company" style={linkStyle}>Company</Link></li>
         <li><Link to="/product" style={linkStyle}>Product</Link></li>
+        <li><Link to="/brand" style={linkStyle}>Brand</Link> </li>
       </ul>
     </div>
   );
