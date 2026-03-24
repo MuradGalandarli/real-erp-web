@@ -1,28 +1,39 @@
 import { useEffect, useState } from "react"
-import { getAllBrandAsync } from "./brandService"
+import { getAllBrandAsync, addProductAsync } from "./brandService"
 import { BrandTable } from "./BrandTable"
+import { BrandModal } from "./BrandModal";
 
 export function BrandPage({ onData }) {
 
     const [brands, setBrands] = useState([]);
     const [page, setPage] = useState(1);
     const [size, setSize] = useState(10);
+    const [show, setShow] = useState(false);
 
     const handlerGetAllBrand = async () => {
         const brands = await getAllBrandAsync(page, size);
-        console.log(brands.data)
         setBrands(brands.data);
     }
     useEffect(
         () => {
-         handlerGetAllBrand() } 
+            handlerGetAllBrand()
+        }
         ,
         [page, size]
-        )
+    )
+
+    const handleAddBrand = async (brand) => {
+        await addProductAsync(brand);
+        setBrands(prev => [...prev, brand])
+        setShow(false);
+    }
 
     return (
         <div>
-<BrandTable onData={brands}/>
+            <BrandTable onData={brands} getModal={() => { setShow(true) }} />
+            {show &&
+                <BrandModal onAdd={handleAddBrand} onClose={() => { setShow(false) }} />
+            }
         </div>
     )
 }

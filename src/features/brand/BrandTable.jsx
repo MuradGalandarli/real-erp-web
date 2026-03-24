@@ -1,7 +1,9 @@
 
-export function BrandTable({ onData }) {
+export function BrandTable({ onData,getModal }) {
 
     return (
+        <div>
+<button onClick={getModal}>Add</button>
         <table>
             <thead>
                 <tr>
@@ -20,7 +22,9 @@ export function BrandTable({ onData }) {
                 ))}
             </tbody>
         </table>
+ </div>
     )
+         
 
 
 }
