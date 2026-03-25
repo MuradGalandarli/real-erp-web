@@ -1,5 +1,5 @@
 
-export function BrandTable({ onData,getModal }) {
+export function BrandTable({ onData,getModal,onBrand }) {
 
     return (
         <div>
@@ -10,6 +10,8 @@ export function BrandTable({ onData,getModal }) {
                     <th>Id</th>
                     <th>Name</th>
                     <th>Company</th>
+                    <th>Update</th>
+                    
                 </tr>
             </thead>
             <tbody>
@@ -18,6 +20,7 @@ export function BrandTable({ onData,getModal }) {
                         <td>{++index}</td>
                         <td>{brand.brandName}</td>
                         <td>{brand.companyId}</td>
+                        <th><button onClick={()=>{onBrand(brand.id)}}>Update</button></th>
                     </tr>
                 ))}
             </tbody>

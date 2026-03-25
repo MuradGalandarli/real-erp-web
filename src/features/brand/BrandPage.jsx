@@ -9,6 +9,7 @@ export function BrandPage({ onData }) {
     const [page, setPage] = useState(1);
     const [size, setSize] = useState(10);
     const [show, setShow] = useState(false);
+    const [selectBrand, setSelectBrand] = useState(null)
 
     const handlerGetAllBrand = async () => {
         const brands = await getAllBrandAsync(page, size);
@@ -28,11 +29,17 @@ export function BrandPage({ onData }) {
         setShow(false);
     }
 
+    const hnadleGetByIdBrand = (id) => {
+        const brand = brands.find(x => x.id === id);
+        setSelectBrand(brand);
+        setShow(true);
+    }
+
     return (
         <div>
-            <BrandTable onData={brands} getModal={() => { setShow(true) }} />
+            <BrandTable onData={brands} getModal={() => { setShow(true) }} onBrand={hnadleGetByIdBrand} />
             {show &&
-                <BrandModal onAdd={handleAddBrand} onClose={() => { setShow(false) }} />
+                <BrandModal onAdd={handleAddBrand} onClose={() => { setShow(false);setSelectBrand(null) }} onBrand={selectBrand} />
             }
         </div>
     )

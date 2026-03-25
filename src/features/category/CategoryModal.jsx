@@ -21,8 +21,7 @@ export function CategoryModal({onClose, category, onUpdate, onAdd}){
                     "description" : category.description,
                     "companyId" : category.companyId
                 })
-                console.log(data)
-
+             
     },[category]
     )
 
