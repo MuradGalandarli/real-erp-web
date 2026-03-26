@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 
-export function BrandModal({ onAdd, onClose, onBrand }) {
+export function BrandModal({ onAdd, onClose, onBrand,onUpdate }) {
 
     const [data, setData] = useState({
         brandName: "",
@@ -28,7 +28,7 @@ export function BrandModal({ onAdd, onClose, onBrand }) {
                 <input type="text" onChange={(e) => { setData(prev => ({ ...prev, brandName: e.target.value })) }} placeholder="name" value={data.brandName} />
                 <input type="text" onChange={(e) => { setData(prev => ({ ...prev, companyId: e.target.value })) }} placeholder="company" value={data.companyId} />
                 <div>
-                    <button onClick={() => { onAdd(data), console.log(data) }}>Save</button>
+                    <button onClick={() => { onBrand ? onUpdate(data): onAdd(data) }}>Save</button>
                     <button onClick={onClose}>Close</button>
                 </div>
             </div>

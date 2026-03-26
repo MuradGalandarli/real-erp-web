@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react"
-import { getAllBrandAsync, addProductAsync } from "./brandService"
+import { getAllBrandAsync, addProductAsync,updateBrandAsync } from "./brandService"
 import { BrandTable } from "./BrandTable"
 import { BrandModal } from "./BrandModal";
+import { apiClient } from "../../core/api";
 
 export function BrandPage({ onData }) {
 
@@ -34,12 +35,22 @@ export function BrandPage({ onData }) {
         setSelectBrand(brand);
         setShow(true);
     }
+    const handleUpdateBrand = async (brand)=>{
+       await updateBrandAsync(brand);
+       setBrands(prev=> prev.map(b=>b.id === brand.id ? brand : b))
+        setShow(false);
+
+    }
 
     return (
         <div>
             <BrandTable onData={brands} getModal={() => { setShow(true) }} onBrand={hnadleGetByIdBrand} />
             {show &&
-                <BrandModal onAdd={handleAddBrand} onClose={() => { setShow(false);setSelectBrand(null) }} onBrand={selectBrand} />
+                <BrandModal 
+                onAdd={handleAddBrand} 
+                onClose={() => { setShow(false);setSelectBrand(null) }}
+                 onBrand={selectBrand} 
+                 onUpdate={handleUpdateBrand}/>
             }
         </div>
     )

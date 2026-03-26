@@ -7,3 +7,9 @@
  export const addProductAsync = async(product)=>{
     return await apiClient.post(`/api/Brand/add-brand`,product)
  }
+
+ export const updateBrandAsync = async(brand)=>{
+   return await apiClient.put(`api/Brand/update-brand`,brand)
+ }
+
+
