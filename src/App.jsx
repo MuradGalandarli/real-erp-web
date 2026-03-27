@@ -11,6 +11,7 @@ import { DepartmentPage } from './features/department/DepartmentPage'
 import { CompanyPage } from './features/company/CompanyPage'
 import { ProductPage } from './features/product/ProductPage' 
 import { BrandPage } from "./features/brand/BrandPage"
+import { EmployeePage } from "./features/employee/EmployeePage"
 
 function App() {
   
@@ -25,7 +26,7 @@ return(
 <Route path="/company" element={<CompanyPage/>}/>
 <Route path="/product" element={<ProductPage/>}/>
 <Route path='/brand' element={<BrandPage/>}></Route>
-
+<Route path='/employess' element={<EmployeePage/>}></Route>
   </Route>
 </Routes>
     </BrowserRouter>
