@@ -1,8 +1,9 @@
 
-export function EmployeeTable({onEmployees}){
+export function EmployeeTable({onEmployees, getModal}){
 
     return(
         <div>
+            <button onClick={getModal}>Add</button>
             <table>
                 <thead>
                     <tr>
