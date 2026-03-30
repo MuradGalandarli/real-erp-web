@@ -1,5 +1,5 @@
 
-export function EmployeeTable({onEmployees, getModal}){
+export function EmployeeTable({onEmployees, getModal,employeeId}){
 
     return(
         <div>
@@ -13,17 +13,19 @@ export function EmployeeTable({onEmployees, getModal}){
                         <th>Department</th>
                         <th>User</th>
                         <th>Company</th>
+                        <th>Update</th>
                     </tr>
                 </thead>
                 <tbody>
                     {onEmployees.map((employee, index)=>(
                         <tr key={index}>
                             <td>{++index}</td>
-                            <td>{employee.name}</td>
+                            <td>{employee.fullName}</td>
                             <td>{employee.position}</td>
                             <td>{employee.departmentId}</td>
                             <td>{employee.userId}</td>
                             <td>{employee.companyId}</td>
+                            <td><button onClick={()=>{employeeId(employee.id)}}>Update</button></td>
                         </tr>
                     ))}
                 </tbody>

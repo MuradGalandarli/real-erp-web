@@ -8,6 +8,7 @@ export function EmployeePage() {
     const [page, setPage] = useState(1);
     const [size, setSize] = useState(10)
     const [show, setShow] = useState(false);
+    const [selectEmployee, setSelectEmployee] = useState(null)
 
     const handleGetAllEmployee = async () => {
         const employees = await getAllEmployeesAsync(page, size);
@@ -23,20 +24,31 @@ export function EmployeePage() {
 
     const handleAddEmployee = async (employee) => {
         await addEmployeeAsync(employee);
-        setEmployees(prev=>[...prev,employee]);
+        setEmployees(prev => [...prev, employee]);
         setShow(false);
+    }
 
+    const handleGetByIdEmployee = (id) => {
+        const employee = employees.find(e => e.id === id);
+        setSelectEmployee(employee);
+        setShow(true);
+        console.log(selectEmployee)
     }
 
     return (
         <div>
             <EmployeeTable
                 onEmployees={employees}
-                getModal={()=>{setShow(true);}}
+                getModal={() => { setShow(true); }}
+                employeeId={handleGetByIdEmployee}
             />
             {show &&
-            <EmployeeModal onNewEmployee={handleAddEmployee} onClose={()=>{setShow(false);}}/>
-}
+                <EmployeeModal
+                    onNewEmployee={handleAddEmployee}
+                    onClose={() => { setShow(false); setSelectEmployee(null) }}
+                    getByIdEmployee={selectEmployee}
+                />
+            }
         </div>
     )
 
