@@ -2,38 +2,40 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
-import {UserPage} from "./features/users/UserPage"
+import { UserPage } from "./features/users/UserPage"
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./layout/Layout";
-import {CategoryPage} from "./features/category/CategoryPage"
-import {WarehousePage} from "./features/warehouse/WarehousePage"
+import { CategoryPage } from "./features/category/CategoryPage"
+import { WarehousePage } from "./features/warehouse/WarehousePage"
 import { DepartmentPage } from './features/department/DepartmentPage'
 import { CompanyPage } from './features/company/CompanyPage'
-import { ProductPage } from './features/product/ProductPage' 
+import { ProductPage } from './features/product/ProductPage'
 import { BrandPage } from "./features/brand/BrandPage"
 import { EmployeePage } from "./features/employee/EmployeePage"
+import { RolePage } from "./features/role/RolePage"
 
 function App() {
-  
-return(
-   <BrowserRouter>
+
+  return (
+    <BrowserRouter>
       <Routes>
-  <Route path='/' element={<Layout />}>
-    <Route path="/users" element={<UserPage />} />
-<Route path="/category" element={<CategoryPage />}/>
-<Route path="/warehouse" element={<WarehousePage/>}/>
-<Route path='/department'element={<DepartmentPage/>}/>
-<Route path="/company" element={<CompanyPage/>}/>
-<Route path="/product" element={<ProductPage/>}/>
-<Route path='/brand' element={<BrandPage/>}></Route>
-<Route path='/employess' element={<EmployeePage/>}></Route>
-  </Route>
-</Routes>
+        <Route path='/' element={<Layout />}>
+          <Route path="/users" element={<UserPage />} />
+          <Route path="/category" element={<CategoryPage />} />
+          <Route path="/warehouse" element={<WarehousePage />} />
+          <Route path='/department' element={<DepartmentPage />} />
+          <Route path="/company" element={<CompanyPage />} />
+          <Route path="/product" element={<ProductPage />} />
+          <Route path='/brand' element={<BrandPage />}></Route>
+          <Route path='/employess' element={<EmployeePage />}></Route>
+          <Route path='/role' element={<RolePage />}></Route>
+        </Route>
+      </Routes>
     </BrowserRouter>
 
- 
-)
- 
+
+  )
+
 
 }
 
