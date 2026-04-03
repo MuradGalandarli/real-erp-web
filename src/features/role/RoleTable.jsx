@@ -1,8 +1,9 @@
 
-export function RoleTable({allRoles}){
+export function RoleTable({allRoles,getShowModal}){
 
 return(
     <div>
+        <button onClick={getShowModal}>Add</button>
         <table>
             <thead><tr>
                 <th>Id</th>
