@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { getAllRoleAsync, addRoleAsync } from "./roleService"
+import { getAllRoleAsync, addRoleAsync,deleteRoleAsync } from "./roleService"
 import { RoleTable } from "./RoleTable"
 import { RoleModal } from "./RoleModal"
 
@@ -28,11 +28,17 @@ export function RolePage() {
         setShow(false);
     }
 
+const handleDeleteAsync = async(id)=>{
+ await deleteRoleAsync(id);
+ setRoles(prev=>prev.filter(r=>r.id !== id));
+}
+
     return (
         <div>
             <RoleTable
                 allRoles={roles}
                 getShowModal={()=>{setShow(true)}}
+                onDelete={handleDeleteAsync}
             />
 
             {show &&

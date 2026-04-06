@@ -9,3 +9,6 @@ export const getAllRoleAsync = async (page, size) => {
 export const addRoleAsync = async (role) => {
   return await apiClient.post(`api/Role/create-role`, role);
 };
+export const deleteRoleAsync = async(id)=>{
+  return await apiClient.delete(`api/Role/delete-role?id=${id}`)
+}
