@@ -9,6 +9,7 @@ export function RolePage() {
     const [page, setPage] = useState(1);
     const [size, setSize] = useState(10);
     const [show, setShow] = useState(false);
+    const [selectRole, setSelectRole] = useState(null);
 
     const handleGetAllRole = async () => {
         const roles = await getAllRoleAsync(page, size);
@@ -33,18 +34,26 @@ const handleDeleteAsync = async(id)=>{
  setRoles(prev=>prev.filter(r=>r.id !== id));
 }
 
+const handleGetByIdRole = (id)=>{
+   const role = roles.find(r=>r.id === id);
+   setSelectRole(role);
+   setShow(true);
+}
+
     return (
         <div>
             <RoleTable
                 allRoles={roles}
                 getShowModal={()=>{setShow(true)}}
                 onDelete={handleDeleteAsync}
+                onUpdate={handleGetByIdRole}
             />
 
             {show &&
                 <RoleModal
                     onRole={handleAddRoel}
-                    onClose={() => { setShow(false) }}
+                    oldRole={selectRole}
+                    onClose={() => { setShow(false); setSelectRole(null) }}
                 />
             }
 
