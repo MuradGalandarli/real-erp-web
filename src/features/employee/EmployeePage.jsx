@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { getAllEmployeesAsync, addEmployeeAsync } from "./employeeService"
+import { getAllEmployeesAsync, addEmployeeAsync, updateEmployeeAsync } from "./employeeService"
 import { EmployeeTable } from "./EmployeeTable"
 import { EmployeeModal } from "./EmployeeModal"
 
@@ -35,6 +35,12 @@ export function EmployeePage() {
         console.log(selectEmployee)
     }
 
+    const handleUpdateEmployee =  async(employee)=>{
+        await updateEmployeeAsync(employee);
+        setShow(false); 
+
+    }
+
     return (
         <div>
             <EmployeeTable
@@ -47,6 +53,7 @@ export function EmployeePage() {
                     onNewEmployee={handleAddEmployee}
                     onClose={() => { setShow(false); setSelectEmployee(null) }}
                     getByIdEmployee={selectEmployee}
+                    onUpdate={handleUpdateEmployee}
                 />
             }
         </div>

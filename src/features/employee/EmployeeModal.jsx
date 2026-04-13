@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 
-export function EmployeeModal({ onNewEmployee, onClose, getByIdEmployee }) {
+export function EmployeeModal({ onNewEmployee, onClose, getByIdEmployee, onUpdate }) {
 
     const [newEmployee, setNewEmployee] = useState({
         "fullName": onNewEmployee.fullName,
@@ -15,7 +15,7 @@ export function EmployeeModal({ onNewEmployee, onClose, getByIdEmployee }) {
         () => {
             if (getByIdEmployee) {
                 setNewEmployee({
-                    id: getByIdEmployee.id,
+                    "id": getByIdEmployee.id,
                     "fullName": getByIdEmployee.fullName,
                     "position": getByIdEmployee.position,
                     "departmentId": getByIdEmployee.departmentId,
@@ -24,36 +24,42 @@ export function EmployeeModal({ onNewEmployee, onClose, getByIdEmployee }) {
                 })
 
             }
-        }
+        },
+        [getByIdEmployee]
     )
 
     return (
         <div className="modal-overlay">
             <div className="modal">
                 <h2>{getByIdEmployee ? "Update" : "Add"}</h2>
-                <input type="text"
-                    onChange={(e) => { { setNewEmployee({ ...newEmployee, fullName: e.target.value }) } }}
+
+
+                <input
+                    type="text"
+                    onChange={(e) => setNewEmployee({ ...newEmployee, fullName: e.target.value })}
                     value={newEmployee.fullName}
-                    placeholder="name" />
+                    placeholder="name"
+                />
                 <input type="text"
-                    onChange={(e) => { { setNewEmployee({ ...newEmployee, position: e.target.value }) } }}
+                    onChange={(e) => setNewEmployee({ ...newEmployee, position: e.target.value })}
                     value={newEmployee.position}
                     placeholder="position" />
                 <input type="text"
-                    onChange={(e) => { { setNewEmployee({ ...newEmployee, departmentId: e.target.value }) } }}
+                    onChange={(e) => { setNewEmployee({ ...newEmployee, departmentId: e.target.value }) }}
                     value={newEmployee.departmentId}
                     placeholder="department" />
                 <input type="text"
-                    onChange={(e) => { { setNewEmployee({ ...newEmployee, userId: e.target.value }) } }}
+                    onChange={(e) => setNewEmployee({ ...newEmployee, userId: e.target.value })}
                     value={newEmployee.userId}
                     placeholder="user" />
                 <input type="text"
-                    onChange={(e) => { { setNewEmployee({ ...newEmployee, companyId: e.target.value }) } }}
+                    onChange={(e) => setNewEmployee({ ...newEmployee, companyId: e.target.value })}
                     value={newEmployee.companyId}
                     placeholder="company" />
+                <input type="text" />
 
                 <div>
-                    <button onClick={() => { onNewEmployee(newEmployee) }}>Save</button>
+                    <button onClick={() => { getByIdEmployee ? onUpdate(newEmployee) : onNewEmployee(newEmployee) }}>Save</button>
                     <button onClick={onClose}>Close</button>
                 </div>
             </div>

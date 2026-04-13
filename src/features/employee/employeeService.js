@@ -8,6 +8,10 @@ export const addEmployeeAsync = async(employee)=>{
     return await apiClient.post(`/api/Employee/add-employee`,employee)
 }
 
+export const updateEmployeeAsync = async(employee)=>{
+    return await apiClient.put(`/api/Employee/update-employee`,employee)
+}
+
 
 
 
