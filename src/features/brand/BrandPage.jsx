@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react"
-import { getAllBrandAsync, addProductAsync,updateBrandAsync } from "./brandService"
+import { getAllBrandAsync, addProductAsync, updateBrandAsync, deleteBrandAsync } from "./brandService"
 import { BrandTable } from "./BrandTable"
 import { BrandModal } from "./BrandModal";
 import { apiClient } from "../../core/api";
+import { UNSAFE_RSCDefaultRootErrorBoundary } from "react-router-dom";
 
 export function BrandPage({ onData }) {
 
@@ -35,22 +36,30 @@ export function BrandPage({ onData }) {
         setSelectBrand(brand);
         setShow(true);
     }
-    const handleUpdateBrand = async (brand)=>{
-       await updateBrandAsync(brand);
-       setBrands(prev=> prev.map(b=>b.id === brand.id ? brand : b))
+    const handleUpdateBrand = async (brand) => {
+        await updateBrandAsync(brand);
+        setBrands(prev => prev.map(b => b.id === brand.id ? brand : b))
         setShow(false);
-
+    }
+    const handleDeleteBrand = async (id) => {
+        debugger
+        await deleteBrandAsync(id);
+       setBrands(brands.filter(x => x.id !== id));
     }
 
     return (
         <div>
-            <BrandTable onData={brands} getModal={() => { setShow(true) }} onBrand={hnadleGetByIdBrand} />
+            <BrandTable
+                onData={brands} getModal={() => { setShow(true) }}
+                onBrand={hnadleGetByIdBrand}
+                onDelete={handleDeleteBrand}
+            />
             {show &&
-                <BrandModal 
-                onAdd={handleAddBrand} 
-                onClose={() => { setShow(false);setSelectBrand(null) }}
-                 onBrand={selectBrand} 
-                 onUpdate={handleUpdateBrand}/>
+                <BrandModal
+                    onAdd={handleAddBrand}
+                    onClose={() => { setShow(false); setSelectBrand(null) }}
+                    onBrand={selectBrand}
+                    onUpdate={handleUpdateBrand} />
             }
         </div>
     )

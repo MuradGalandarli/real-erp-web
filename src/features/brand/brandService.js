@@ -12,4 +12,8 @@
    return await apiClient.put(`api/Brand/update-brand`,brand)
  }
 
+ export const deleteBrandAsync = async(id)=>{
+   return await apiClient.delete(`api/Brand/delete-brand?id=${id}`)
+ }
+
 
