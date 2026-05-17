@@ -2,19 +2,27 @@ import { useState,useEffect } from "react";
 import { getAllUser,addUser,getByIdUserAsync,updateUserAsync,deleteUserAsync } from "./userService"
 import { UserTable } from "./UserTable"
 import { UserModal } from "./UserModal";
+import { getAllCompanyAsync } from "../company/companyService"
 import "./user.css"
 
 export function UserPage(){
-   const [users, setUsers] = useState([])
-   const [page, setPage] = useState(1)
-   const [size, setSize] = useState(10)
-   const [showModal,setShowModal] = useState(false)
-   const [selectedUser, setSelectedUser] = useState(null)
+   const [users, setUsers] = useState([]);
+   const [page, setPage] = useState(1);
+   const [size, setSize] = useState(10);
+   const [showModal,setShowModal] = useState(false);
+   const [selectedUser, setSelectedUser] = useState(null);
+   const [company, setCompany] = useState([]);
+
+const fetchCompany = async ()=>{
+  const response = await getAllCompanyAsync(page,size);
+  setCompany(response.data.companyDto);
+}
 
 const fetchUsers = async () => {
   try {
     const response = await getAllUser(page, size);
     setUsers(response.data);
+   
   } catch (error) {
     console.error("Users fetch error:", error);
   }
@@ -22,6 +30,7 @@ const fetchUsers = async () => {
 
 useEffect(() => {
   fetchUsers();
+  fetchCompany();
 }, [page, size]);
 
 const handleUpdateClick = async (user) => {
@@ -51,8 +60,10 @@ const hendleUserDelete = async(email)=>{
 <button onClick={() => setShowModal(true)}>Add User</button>
 </div>
 
-      <UserTable users={users} onUpdate={handleUpdateClick}
+      <UserTable users={users} 
+      onUpdate={handleUpdateClick}
       onDelete={hendleUserDelete}
+      onCompany = {company}
       />
       
       {showModal && (
@@ -61,6 +72,7 @@ const hendleUserDelete = async(email)=>{
         onSave={handleSaveUser}
         user={selectedUser}
         onUpdate={handleUpdateUser}
+         onCompany = {company}
         />
        
       )}

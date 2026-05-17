@@ -2,7 +2,7 @@ import { useState,useEffect } from "react";
 import "./user.css"
 
 
-export function UserModal({onClose,onSave,user,onUpdate}){
+export function UserModal({onClose,onSave,user,onUpdate, onCompany}){
   const [formData, setFormData] = useState({
   name: "",
   surname: "",
@@ -25,6 +25,7 @@ useEffect(()=>{
 )
 
 const handleChange = (e)=>{
+    
     setFormData({...formData,
         [e.target.name]:e.target.value
     });
@@ -55,12 +56,23 @@ onChange={handleChange}
 value={formData.surname}
 />
 
-<input
+{/* <input
 name = "companyId"
 placeholder="company"
 onChange={handleChange}
 value={formData.companyId}
-/>
+/> */}
+
+<select name="companyId" id="" onChange={handleChange}>
+    <option value="">Sec</option>
+{onCompany.map((data)=>(
+<option key={data.id} value={data.id}>{data.name}</option>
+))}
+
+
+</select>
+
+
 
 {!user &&(
 <input
