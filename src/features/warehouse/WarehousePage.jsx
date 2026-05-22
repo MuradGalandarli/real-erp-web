@@ -3,6 +3,7 @@ import { getAllWarehouseAsync, addWarehouseAsync, updateWarehouseAsync, deleteWa
 import { WarehouseTable } from "./WarehouseTable"
 import { WarehouseModal } from "./WarehouseModal"
 import { data } from "react-router-dom";
+import { getAllCompanyAsync } from "../company/companyService"
 
 export function WarehousePage() {
 
@@ -11,6 +12,13 @@ export function WarehousePage() {
     const [page, setPage] = useState(10)
     const [showModal, setShowModal] = useState(false)
     const [selectWarehouse, setSelecetWarehouse] = useState(null)
+    const [company, setCompany] = useState([])
+
+const handlegetAllCompany = async ()=>{
+
+    const companies = await getAllCompanyAsync(size,page)
+    setCompany(companies.data.companyDto)
+}
 
     const handleGetAllWarehouse = async () => {
         const getWarehouses = await getAllWarehouseAsync(size, page)
@@ -19,6 +27,7 @@ export function WarehousePage() {
 
     useEffect(() => {
         handleGetAllWarehouse();
+        handlegetAllCompany();
     }, [page, size])
 
 
@@ -33,6 +42,7 @@ export function WarehousePage() {
         updateWarehouseAsync(data)
         setWarehouse(prew => prew.map(w => w.id === data.id ? data : w))
         setShowModal(false);
+        setSelecetWarehouse("")
     }
 
     const handleWarehouseUpdate = async (id) => {
@@ -52,6 +62,7 @@ export function WarehousePage() {
                 onAddModal={() => { { setShowModal(true) } }}
                 onUpdateModal={handleWarehouseUpdate}
                 onDelete={handleDeleteWarehouse}
+                companyData={company}
             />
 
             {showModal &&
@@ -59,6 +70,7 @@ export function WarehousePage() {
                     onAdd={handleWarehouseAdd} onClose={() => { setShowModal(false), setSelecetWarehouse(null) }}
                     data={selectWarehouse}
                     onUpdate={handleUpdateWarehouse}
+                    companyData={company}
 
                 />
             }

@@ -69,9 +69,7 @@ value={formData.companyId}
 <option key={data.id} value={data.id}>{data.name}</option>
 ))}
 
-
 </select>
-
 
 
 {!user &&(

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 
 
-export function WarehouseModal({ onClose, onAdd, data, onUpdate }) {
+export function WarehouseModal({ onClose, onAdd, data, onUpdate, companyData }) {
 
     const [formData, setFormData] = useState({
         "name": "",
@@ -30,10 +30,21 @@ export function WarehouseModal({ onClose, onAdd, data, onUpdate }) {
                 <input value={formData.name} placeholder="name" onChange={(e) => { setFormData({ ...formData, name: e.target.value }) }} />
                 <input value={formData.description} placeholder="description" onChange={(e) => { setFormData({ ...formData, description: e.target.value }) }} />
                 <input value={formData.location} placeholder="location" onChange={(e) => { setFormData({ ...formData, location: e.target.value }) }} />
-                <input value={formData.companyId} placeholder="company" onChange={(e) => { setFormData({ ...formData, companyId: e.target.value }) }} />
+                {/* <input value={formData.companyId} placeholder="company" onChange={(e) => { setFormData({ ...formData, companyId: e.target.value }) }} /> */}
 
+
+
+                <select name="companyId" id="" onChange={(e) => { setFormData({ ...formData, companyId: e.target.value }) }}>
+                    <option value="">Sec</option>
+
+                    {companyData.map((company) => {
+                        debugger
+                        return <option key={company.id} value={company.id}>{company.name}</option>
+                    })
+                    }
+                </select>
                 <div>
-                    <button onClick={() => { data ? onUpdate(formData) :  onAdd(formData) }}>Save</button>
+                    <button onClick={() => { data ? onUpdate(formData) : onAdd(formData) }}>Save</button>
                     <button onClick={onClose}>Close</button>
                 </div>
             </div>

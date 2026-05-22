@@ -1,5 +1,5 @@
 
-export function WarehouseTable({ data, onAddModal, onUpdateModal,onDelete }) {
+export function WarehouseTable({ data, onAddModal, onUpdateModal,onDelete, companyData }) {
 
     return (
         <div>
@@ -23,7 +23,8 @@ export function WarehouseTable({ data, onAddModal, onUpdateModal,onDelete }) {
                             <td>{warehouse.name}</td>
                             <td>{warehouse.description}</td>
                             <td>{warehouse.location}</td>
-                            <td>{warehouse.companyId}</td>
+                            {/* <td>{warehouse.companyId}</td> */}
+                            <td>{companyData.find(x=>x.id == warehouse.companyId).name}</td>
                             <td><button onClick={() => { onUpdateModal(warehouse.id) }}>Update</button></td>
                             <td><button onClick={()=>{onDelete(warehouse.id)}}>Delete</button></td>
                         </tr>
