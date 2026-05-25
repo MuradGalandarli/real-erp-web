@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { useSearchParams } from "react-router-dom"
 
 
-export function DepartmentModal({ onAdd, onClose, onData, onUpdate }) {
+export function DepartmentModal({ onAdd, onClose, onData, onUpdate,company }) {
 
     const [newDepartment, setNewDepartment] = useState({
         name: "",
@@ -35,7 +35,7 @@ export function DepartmentModal({ onAdd, onClose, onData, onUpdate }) {
   }
 />
 
-<input
+{/* <input
   value={newDepartment.companyId}
   type="text"
   placeholder="company"
@@ -46,7 +46,22 @@ export function DepartmentModal({ onAdd, onClose, onData, onUpdate }) {
       companyId: e.target.value
     })
   }
-/>
+/> */}
+
+
+<select name="company" id="" onChange={(e) =>
+    setNewDepartment({
+      ...newDepartment,
+      companyId: e.target.value
+    })
+  }>
+  <option value="">Sec</option>
+  {company.map((item)=>(
+    <option value={item.id}>{item.name}</option>
+  ))
+}
+</select>
+
 
                 <div className="modal-buttons">
                     <button onClick={() => { onData ? onUpdate(newDepartment) : onAdd(newDepartment) }}>Save</button>

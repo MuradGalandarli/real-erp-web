@@ -1,8 +1,9 @@
 
 import { useEffect, useState } from "react"
-import { getAllDepartmentAsync, getAddDepartmentAsync, updateDepartmentAsync,deleteDepartmentAsync } from "./departmentService"
+import { getAllDepartmentAsync, getAddDepartmentAsync, updateDepartmentAsync, deleteDepartmentAsync } from "./departmentService"
 import { DepartmentTable } from "./DepartmentTable"
 import { DepartmentModal } from "./departmentModal";
+import { getAllCompanyAsync } from "../company/companyService"
 
 export function DepartmentPage() {
     const [departments, setDepartments] = useState([]);
@@ -10,6 +11,14 @@ export function DepartmentPage() {
     const [size, setSize] = useState(10)
     const [showModal, setShowModal] = useState(false)
     const [selectDepartment, setSelectDepartment] = useState(null)
+    const [company, companySet] = useState([]);
+
+    const handleGetAllCompany = async () => {
+        const datas = await getAllCompanyAsync(page,size);
+        companySet(datas.data.companyDto)
+        
+        
+    }
 
     const handleDepartmentGetAll = async () => {
         const datas = await getAllDepartmentAsync(page, size);
@@ -17,6 +26,7 @@ export function DepartmentPage() {
     }
     useEffect(() => {
         handleDepartmentGetAll();
+        handleGetAllCompany()
     }, [page, size])
 
 
@@ -40,17 +50,28 @@ export function DepartmentPage() {
             prev.map(d => d.id === department.id ? department : d));
     }
 
-    const deleteDepartment = async(id)=>{
-    await deleteDepartmentAsync(id);
-    setDepartments(prev=>prev.filter(x=>x.id !== id));
+    const deleteDepartment = async (id) => {
+        await deleteDepartmentAsync(id);
+        setDepartments(prev => prev.filter(x => x.id !== id));
     }
 
     return (
         <div>
-            <DepartmentTable departments={departments} getModal={() => { setShowModal(true) }} onUpdate={handleGetByIdDepartment} onDelete={deleteDepartment} />
+            <DepartmentTable
+                departments={departments}
+                getModal={() => { setShowModal(true) }}
+                onUpdate={handleGetByIdDepartment}
+                onDelete={deleteDepartment}
+                company={company}
+            />
 
             {showModal &&
-                <DepartmentModal onClose={() => { setShowModal(false) }} onAdd={handleAddAsync} onData={selectDepartment} onUpdate={handleUpdateDepartment} />
+                <DepartmentModal
+                    onClose={() => { setShowModal(false) }}
+                    onAdd={handleAddAsync} onData={selectDepartment}
+                    onUpdate={handleUpdateDepartment}
+                    company={company}
+                />
             }
         </div>
     )
