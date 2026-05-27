@@ -1,5 +1,5 @@
 
-export function ProductTable({ onProducts,getModal,onDelete}) {
+export function ProductTable({ onProducts,getModal,onDelete,company, category}) {
 
     return (
         <div>
@@ -26,9 +26,10 @@ export function ProductTable({ onProducts,getModal,onDelete}) {
                             <td>{product.name}</td>
                             <td>{product.description}</td>
                             <td>{product.brandId}</td>
-                            <td>{product.categoryId}</td>
-                            <td>{product.companyId}</td>
-                          
+                            {/* <td>{product.categoryId}</td> */}
+                          <td>{category.find(c=>c.id == product.categoryId).name}</td>
+                            {/* <td>{product.companyId}</td> */}
+                             <td>{company.find(c=>c.id == product.companyId).name}</td>
                             <td>
                                 {product.productImages?.map((i, index) =>
                                 
