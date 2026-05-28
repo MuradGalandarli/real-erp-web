@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-export function ProductModal({ onNewProduct, company, category}) {
+export function ProductModal({ onNewProduct, company, category,brand,onClose}) {
   const [newProduct, setNewProduct] = useState({
     name: "",
     description: "",
@@ -31,15 +31,29 @@ export function ProductModal({ onNewProduct, company, category}) {
         <h2>Add</h2>
         <input type="text" placeholder="name" onChange={(e) => setNewProduct({...newProduct, name: e.target.value})} />
         <input type="text" placeholder="description" onChange={(e) => setNewProduct({...newProduct, description: e.target.value})} />
-        <input type="text" placeholder="brandId" onChange={(e) => setNewProduct({...newProduct, brandId: e.target.value})} />
+        
+        {/* <input type="text" 
+        placeholder="brandId" 
+        onChange={(e) => setNewProduct({...newProduct, brandId: e.target.value})} /> */}
+
+        <select 
+         onChange={(e) => setNewProduct({...newProduct, brandId: Number(e.target.value)})}
+        >
+          <option value="">Brands</option>
+{
+  brand.map((item)=>(
+    <option key={item.id} value={item.id}>{item.brandName}</option>
+  ))
+}
+        </select>
       
         <select name="" id=""
-          onChange={(e) => setNewProduct({...newProduct, categoryId: e.target.value})}
+          onChange={(e) => setNewProduct({...newProduct, categoryId: Number(e.target.value)})}
         >
-          <option value="Sec"></option>
+          <option value="">Categories</option>
           {
             category.map((c)=>(
-              <option value={c.id}>{c.name}</option>
+              <option key={c.id} value={c.id}>{c.name}</option>
             ))
           }
         </select>
@@ -52,12 +66,12 @@ export function ProductModal({ onNewProduct, company, category}) {
          onChange={(e) => setNewProduct({...newProduct, companyId: e.target.value})} />
         */}
         <select name="" id=""
-         onChange={(e) => setNewProduct({...newProduct, companyId: e.target.value})}
+         onChange={(e) => setNewProduct({...newProduct, companyId: Number(e.target.value)})}
         >
-          <option value="Sec"></option>
+          <option value="">Companies</option>
           {
             company.map((c)=>(
-              <option value={c.id}>{c.name}</option>
+              <option key={c.id} value={c.id}>{c.name}</option>
             ))
           }
         </select>
@@ -67,6 +81,7 @@ export function ProductModal({ onNewProduct, company, category}) {
         <input type="file" multiple onChange={(e) => setNewProduct({...newProduct, images: [...e.target.files]})} />
         <div className="modal-buttons">
           <button type="button" onClick={handleSave}>Save</button>
+           <button type="button" onClick={onClose}>Close</button>
         </div>
       </div>
     </div>

@@ -4,6 +4,7 @@ import { ProductTable } from "./ProductTable"
 import { ProductModal } from "./PrductModal";
 import { getAllCategoryAsync } from "../category/categoryService"
 import { getAllCompanyAsync } from "../company/companyService"
+import { getAllBrandAsync } from "../brand/brandService"
 
 export function ProductPage() {
     const [products, setProducts] = useState([]);
@@ -12,6 +13,12 @@ export function ProductPage() {
     const [show, setShow] = useState(false);
     const [category, setCategory] = useState([]);
     const [company, setCompany] = useState([])
+    const [brand, setBrands] = useState([])
+
+    const getAllBrand = async () => {
+        const brands = await getAllBrandAsync(page, size)
+        setBrands(brands.data)
+    }
 
     const getAllCategory = async () => {
         const category = await getAllCategoryAsync(page, size);
@@ -33,6 +40,7 @@ export function ProductPage() {
             getAllProduct();
             getAllCompany();
             getAllCategory();
+            getAllBrand()
         },
         [page, size]
     )
@@ -41,6 +49,7 @@ export function ProductPage() {
     }, [page, size, products]);
 
     const addProduct = async (product) => {
+        debugger
         await addProductAsync(product);
         setShow(false);
         await getAllProduct()
@@ -59,11 +68,14 @@ export function ProductPage() {
                 onDelete={deleteProduct}
                 company={company}
                 category={category}
+                brand={brand}
             />
             {show &&
                 <ProductModal onNewProduct={addProduct}
                     company={company}
                     category={category}
+                    brand={brand}
+                    onClose={()=>{setShow(false)}}
                 />
 
             }

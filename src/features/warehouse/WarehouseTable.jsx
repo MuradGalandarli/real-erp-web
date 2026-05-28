@@ -24,7 +24,7 @@ export function WarehouseTable({ data, onAddModal, onUpdateModal,onDelete, compa
                             <td>{warehouse.description}</td>
                             <td>{warehouse.location}</td>
                             {/* <td>{warehouse.companyId}</td> */}
-                            <td>{companyData.find(x=>x.id == warehouse.companyId).name}</td>
+                            <td>{companyData.find(x=>x.id == warehouse.companyId)?.name}</td>
                             <td><button onClick={() => { onUpdateModal(warehouse.id) }}>Update</button></td>
                             <td><button onClick={()=>{onDelete(warehouse.id)}}>Delete</button></td>
                         </tr>

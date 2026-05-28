@@ -1,5 +1,5 @@
 
-export function ProductTable({ onProducts,getModal,onDelete,company, category}) {
+export function ProductTable({ onProducts, getModal, onDelete, company, category, brand }) {
 
     return (
         <div>
@@ -25,27 +25,29 @@ export function ProductTable({ onProducts,getModal,onDelete,company, category}) 
                             <td>{++index}</td>
                             <td>{product.name}</td>
                             <td>{product.description}</td>
-                            <td>{product.brandId}</td>
+                            {/* <td>{product.brandId}</td> */}
+                            <td>{brand.find(b=>b.id == product.brandId)?.brandName
+                            }</td>
                             {/* <td>{product.categoryId}</td> */}
-                          <td>{category.find(c=>c.id == product.categoryId).name}</td>
+                            <td>{category.find(c => c.id == product.categoryId)?.name}</td>
                             {/* <td>{product.companyId}</td> */}
-                             <td>{company.find(c=>c.id == product.companyId).name}</td>
+                            <td>{company.find(c => c.id == product.companyId)?.name}</td>
                             <td>
                                 {product.productImages?.map((i, index) =>
-                                
+
                                     i.isMain && !i.isDeleted ? (
                                         <img
                                             key={index}
                                             src={i.imageUrl}
                                             alt="images"
                                             width="40"
-                                           
+
                                         />
-                                       
+
                                     ) : null
                                 )}
                             </td>
-                              <td><button onClick={()=>{onDelete(product.id)}}>Delete</button></td>
+                            <td><button onClick={() => { onDelete(product.id) }}>Delete</button></td>
 
                         </tr>
                     ))}
