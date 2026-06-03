@@ -1,5 +1,5 @@
 
-export function BrandTable({ onData,getModal,onBrand,onDelete }) {
+export function BrandTable({ onData,getModal,onBrand,onDelete, company }) {
 
     return (
         <div>
@@ -19,7 +19,7 @@ export function BrandTable({ onData,getModal,onBrand,onDelete }) {
                     <tr key={index}>
                         <td>{++index}</td>
                         <td>{brand.brandName}</td>
-                        <td>{brand.companyId}</td>
+                        <td>{company.find(x=>x.id == brand.companyId)?.name}</td>
                         <th><button onClick={()=>{onBrand(brand.id)}}>Update</button></th>
                         <th><button onClick={()=>{onDelete(brand.id)}}>Delete</button></th>
                     </tr>

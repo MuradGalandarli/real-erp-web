@@ -4,6 +4,7 @@ import { BrandTable } from "./BrandTable"
 import { BrandModal } from "./BrandModal";
 import { apiClient } from "../../core/api";
 import { UNSAFE_RSCDefaultRootErrorBoundary } from "react-router-dom";
+import { getAllCompanyAsync } from "../company/companyService"
 
 export function BrandPage({ onData }) {
 
@@ -12,14 +13,21 @@ export function BrandPage({ onData }) {
     const [size, setSize] = useState(10);
     const [show, setShow] = useState(false);
     const [selectBrand, setSelectBrand] = useState(null)
+    const [company, setCompany] = useState([]);
 
+    const getAllCompany = async () => {
+        debugger
+        const companies = await getAllCompanyAsync(page, size);
+        setCompany(companies.data.companyDto)
+    }
     const handlerGetAllBrand = async () => {
         const brands = await getAllBrandAsync(page, size);
         setBrands(brands.data);
     }
     useEffect(
         () => {
-            handlerGetAllBrand()
+            handlerGetAllBrand();
+            getAllCompany();
         }
         ,
         [page, size]
@@ -40,11 +48,12 @@ export function BrandPage({ onData }) {
         await updateBrandAsync(brand);
         setBrands(prev => prev.map(b => b.id === brand.id ? brand : b))
         setShow(false);
+        setSelectBrand(null)
     }
     const handleDeleteBrand = async (id) => {
         debugger
         await deleteBrandAsync(id);
-       setBrands(brands.filter(x => x.id !== id));
+        setBrands(brands.filter(x => x.id !== id));
     }
 
     return (
@@ -53,13 +62,16 @@ export function BrandPage({ onData }) {
                 onData={brands} getModal={() => { setShow(true) }}
                 onBrand={hnadleGetByIdBrand}
                 onDelete={handleDeleteBrand}
+                company={company}
             />
             {show &&
                 <BrandModal
                     onAdd={handleAddBrand}
                     onClose={() => { setShow(false); setSelectBrand(null) }}
                     onBrand={selectBrand}
-                    onUpdate={handleUpdateBrand} />
+                    onUpdate={handleUpdateBrand}
+                    company={company}
+                />
             }
         </div>
     )
