@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { getAllEmployeesAsync, addEmployeeAsync, updateEmployeeAsync } from "./employeeService"
 import { EmployeeTable } from "./EmployeeTable"
 import { EmployeeModal } from "./EmployeeModal"
+import { getAllDepartmentAsync } from "../department/departmentService"
 
 export function EmployeePage() {
     const [employees, setEmployees] = useState([]);
@@ -9,6 +10,13 @@ export function EmployeePage() {
     const [size, setSize] = useState(10)
     const [show, setShow] = useState(false);
     const [selectEmployee, setSelectEmployee] = useState(null)
+    const [department, setDepartment] = useState([])
+
+    const handleDepaertment = async() => {
+        debugger
+        const departments = await getAllDepartmentAsync(page, size)
+        setDepartment(departments.data);
+    }
 
     const handleGetAllEmployee = async () => {
         const employees = await getAllEmployeesAsync(page, size);
@@ -18,8 +26,9 @@ export function EmployeePage() {
     useEffect(
         () => {
             handleGetAllEmployee();
+            handleDepaertment();
         },
-        [employees, page, size]
+        [ page, size]
     )
 
     const handleAddEmployee = async (employee) => {
@@ -35,10 +44,10 @@ export function EmployeePage() {
         console.log(selectEmployee)
     }
 
-    const handleUpdateEmployee =  async(employee)=>{
+    const handleUpdateEmployee = async (employee) => {
         await updateEmployeeAsync(employee);
-        setShow(false); 
-
+        setEmployees(prev => prev.map(x=>x.id == employee.id ? employee :x))
+        setShow(false);
     }
 
     return (
@@ -47,6 +56,7 @@ export function EmployeePage() {
                 onEmployees={employees}
                 getModal={() => { setShow(true); }}
                 employeeId={handleGetByIdEmployee}
+                department={department}
             />
             {show &&
                 <EmployeeModal
@@ -54,6 +64,7 @@ export function EmployeePage() {
                     onClose={() => { setShow(false); setSelectEmployee(null) }}
                     getByIdEmployee={selectEmployee}
                     onUpdate={handleUpdateEmployee}
+                    department={department}
                 />
             }
         </div>

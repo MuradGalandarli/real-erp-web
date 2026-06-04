@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 
-export function EmployeeModal({ onNewEmployee, onClose, getByIdEmployee, onUpdate }) {
+export function EmployeeModal({ onNewEmployee, onClose, getByIdEmployee, onUpdate, department }) {
 
     const [newEmployee, setNewEmployee] = useState({
         "fullName": onNewEmployee.fullName,
@@ -44,10 +44,21 @@ export function EmployeeModal({ onNewEmployee, onClose, getByIdEmployee, onUpdat
                     onChange={(e) => setNewEmployee({ ...newEmployee, position: e.target.value })}
                     value={newEmployee.position}
                     placeholder="position" />
-                <input type="text"
+                {/* <input type="text"
                     onChange={(e) => { setNewEmployee({ ...newEmployee, departmentId: e.target.value }) }}
                     value={newEmployee.departmentId}
-                    placeholder="department" />
+                    placeholder="department" /> */}
+
+                <select name="" id=""  onChange={(e) => { setNewEmployee({ ...newEmployee, departmentId: e.target.value }) }}
+                    >
+                    <option value={newEmployee.departmentId}>{department.find(x=>x.id == newEmployee.departmentId)?.name}</option>
+                    {
+                        department.map((item)=>(
+                            <option value={item.id}>{item.name}</option>
+                        ))
+                    }
+                </select>
+
                 <input type="text"
                     onChange={(e) => setNewEmployee({ ...newEmployee, userId: e.target.value })}
                     value={newEmployee.userId}
@@ -56,7 +67,7 @@ export function EmployeeModal({ onNewEmployee, onClose, getByIdEmployee, onUpdat
                     onChange={(e) => setNewEmployee({ ...newEmployee, companyId: e.target.value })}
                     value={newEmployee.companyId}
                     placeholder="company" />
-                <input type="text" />
+               
 
                 <div>
                     <button onClick={() => { getByIdEmployee ? onUpdate(newEmployee) : onNewEmployee(newEmployee) }}>Save</button>
