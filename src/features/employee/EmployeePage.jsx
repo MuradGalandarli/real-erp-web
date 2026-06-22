@@ -3,6 +3,7 @@ import { getAllEmployeesAsync, addEmployeeAsync, updateEmployeeAsync } from "./e
 import { EmployeeTable } from "./EmployeeTable"
 import { EmployeeModal } from "./EmployeeModal"
 import { getAllDepartmentAsync } from "../department/departmentService"
+import { getAllCompanyAsync } from '../company/companyService'
 
 export function EmployeePage() {
     const [employees, setEmployees] = useState([]);
@@ -11,9 +12,17 @@ export function EmployeePage() {
     const [show, setShow] = useState(false);
     const [selectEmployee, setSelectEmployee] = useState(null)
     const [department, setDepartment] = useState([])
+    const [company, setCompany] = useState([]);
+
+    const handleCompany = async()=>{
+
+        const datas = await getAllCompanyAsync(page,size);
+        setCompany(datas.data.companyDto);
+
+    }
 
     const handleDepaertment = async() => {
-        debugger
+        
         const departments = await getAllDepartmentAsync(page, size)
         setDepartment(departments.data);
     }
@@ -27,6 +36,7 @@ export function EmployeePage() {
         () => {
             handleGetAllEmployee();
             handleDepaertment();
+            handleCompany();
         },
         [ page, size]
     )
@@ -57,6 +67,7 @@ export function EmployeePage() {
                 getModal={() => { setShow(true); }}
                 employeeId={handleGetByIdEmployee}
                 department={department}
+                company = {company}
             />
             {show &&
                 <EmployeeModal
@@ -65,6 +76,7 @@ export function EmployeePage() {
                     getByIdEmployee={selectEmployee}
                     onUpdate={handleUpdateEmployee}
                     department={department}
+                    company = {company}
                 />
             }
         </div>

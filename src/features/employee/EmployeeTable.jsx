@@ -1,5 +1,5 @@
 
-export function EmployeeTable({onEmployees, getModal,employeeId,department}){
+export function EmployeeTable({onEmployees, getModal,employeeId,department,company}){
 
     return(
         <div>
@@ -26,7 +26,9 @@ export function EmployeeTable({onEmployees, getModal,employeeId,department}){
                             <td> {department.find(x=>x.id == employee.departmentId).name
                               }</td> 
                             <td>{employee.userId}</td>
-                            <td>{employee.companyId}</td>
+                            {/* <td>{employee.companyId}</td> */}
+                            <td>{company.find(x=>x.id == employee.companyId)?.name
+                            }</td>
                           
                             <td><button onClick={()=>{employeeId(employee.id)}}>Update</button></td>
                         </tr>
